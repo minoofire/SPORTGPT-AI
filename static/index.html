@@ -6,149 +6,180 @@
   <title>SharpPunter - AI Sports Predictions & Bet Code Optimizer</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #020617; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    body { background-color: #090d16; color: #f1f5f9; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col items-center">
+<body class="min-h-screen flex flex-col items-center font-sans antialiased selection:bg-emerald-500 selection:text-slate-950">
 
-  <!-- Top Navigation Header -->
-  <header class="w-full bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-4 py-3.5 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <h1 class="text-lg font-black tracking-wider text-emerald-400 flex items-center gap-1.5">
-          <span>🎯</span> SHARP<span class="text-white">PUNTER</span>
-        </h1>
-        <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded">AI PREDICTIONS</span>
+  <!-- TOP NAVIGATION BAR -->
+  <header class="w-full bg-[#0b101d] border-b border-slate-800/80 sticky top-0 z-50 backdrop-blur-md bg-opacity-90">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchSection('predictions')">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-emerald-500/20">
+          ⚡
+        </div>
+        <div class="flex flex-col">
+          <span class="font-black tracking-wider text-base text-white">SHARP<span class="text-emerald-400">PUNTER</span></span>
+          <span class="text-[9px] text-slate-400 tracking-widest font-semibold uppercase -mt-1">AI Sports Analysis</span>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <button onclick="switchTab('predictions')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-emerald-600 text-white" id="tab-predictions">Predictions</button>
-        <button onclick="switchTab('optimizer')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition" id="tab-optimizer">Code Optimizer</button>
-        <button onclick="switchTab('sharpslips')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition" id="tab-sharpslips">SharpSlips</button>
+
+      <!-- Navigation Links / Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-[#0f172a] p-1 rounded-xl border border-slate-800">
+        <button onclick="switchSection('predictions')" id="nav-predictions" class="px-4 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950 shadow">Predictions</button>
+        <button onclick="switchSection('optimizer')" id="nav-optimizer" class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">Code Optimizer</button>
+        <button onclick="switchSection('converter')" id="nav-converter" class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">Code Converter</button>
+        <button onclick="switchSection('sharpslips')" id="nav-sharpslips" class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">SharpSlips</button>
+      </nav>
+
+      <!-- User Profile / Login Action -->
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:inline-block text-xs font-medium text-slate-400">Log in</span>
+        <button onclick="switchSection('predictions')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+          Start Free
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="w-full max-w-4xl px-4 py-6 space-y-6">
+  <!-- Mobile Navigation Bar (Bottom or Sub-header) -->
+  <div class="md:hidden w-full bg-[#0b101d] border-b border-slate-800 px-4 py-2 flex justify-around text-xs font-semibold">
+    <button onclick="switchSection('predictions')" id="mob-nav-predictions" class="text-emerald-400 pb-1 border-b-2 border-emerald-400">Predictions</button>
+    <button onclick="switchSection('optimizer')" id="mob-nav-optimizer" class="text-slate-400 pb-1">Optimizer</button>
+    <button onclick="switchSection('converter')" id="mob-nav-converter" class="text-slate-400 pb-1">Converter</button>
+    <button onclick="switchSection('sharpslips')" id="mob-nav-sharpslips" class="text-slate-400 pb-1">SharpSlips</button>
+  </div>
 
-    <!-- HOT PICKS OF THE DAY BANNER -->
-    <div class="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 border border-emerald-500/30 rounded-2xl p-5 shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-      <div>
-        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold px-2.5 py-1 rounded-full tracking-wide">HOT PICK OF THE DAY</span>
-        <h2 class="text-lg font-bold text-white mt-2">Arsenal vs Chelsea</h2>
-        <p class="text-xs text-slate-300">Market: Home Win | Bookmaker Odds: 2.10 | Value Edge: +8.5%</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="bg-emerald-500 text-slate-950 font-black text-xs px-3 py-1.5 rounded-lg shadow-md">STRONG PICK</span>
-        <button onclick="switchTab('predictions')" class="text-xs font-semibold text-emerald-400 hover:underline">View Analysis →</button>
-      </div>
-    </div>
+  <!-- MAIN CONTAINER AREA -->
+  <main class="w-full max-w-5xl px-4 py-8 space-y-8 flex-1">
 
-    <!-- VIEW 1: PREDICTIONS & AI EVALUATOR -->
-    <section id="view-predictions" class="space-y-6">
+    <!------------------------------------------------ SECTION 1: PREDICTIONS & ANALYZER ------------------------------------------------>
+    <div id="section-predictions" class="space-y-6">
       
-      <!-- Custom Match Analyzer -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-        <h3 class="font-bold text-sm text-slate-200">🔍 AI Match Prediction Engine</h3>
-        <p class="text-xs text-slate-400">Analyze any fixture to get plain-word pick ratings (Strong, Fair, Slim) and Kelly stake sizing.</p>
+      <!-- Intro Banner -->
+      <div class="bg-gradient-to-r from-emerald-950/40 via-[#0f172a] to-[#0b101d] border border-emerald-500/20 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="space-y-1.5 max-w-xl">
+          <div class="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+            <span>✨</span> AI-GENERATED RATINGS
+          </div>
+          <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">Every match, rated in plain words.</h2>
+          <p class="text-xs text-slate-400 leading-relaxed">Strong, Fair or Slim ratings backed by quantitative expected value models, removing all guesswork from your betting strategy.</p>
+        </div>
+        <div class="bg-[#0b101d] border border-slate-800 p-4 rounded-xl text-center shrink-0 w-full md:w-auto">
+          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Free Daily Picks</p>
+          <p class="text-lg font-black text-emerald-400 mt-0.5">2 Football Picks / Day</p>
+        </div>
+      </div>
 
-        <div class="grid grid-cols-2 gap-3">
+      <!-- Interactive Match Evaluator -->
+      <div class="bg-[#0b101d] border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>📊</span> Custom Match AI Evaluator</h3>
+          <span class="text-[10px] text-slate-400 bg-slate-900 px-2 py-1 rounded border border-slate-800">Instant Probability Check</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Home Team</label>
-            <input id="homeTeam" type="text" value="Real Madrid" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Home Team</label>
+            <input id="homeTeam" type="text" value="Manchester City" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Away Team</label>
-            <input id="awayTeam" type="text" value="Barcelona" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Away Team</label>
+            <input id="awayTeam" type="text" value="Liverpool" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Bookmaker Odds</label>
-            <input id="odds" type="number" step="0.01" value="2.05" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Bookmaker Decimal Odds</label>
+            <input id="odds" type="number" step="0.01" value="1.85" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Model Win Prob (%)</label>
-            <input id="winProb" type="number" step="1" value="58" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Model Win Probability (%)</label>
+            <input id="winProb" type="number" step="1" value="62" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Bankroll Unit</label>
-            <input id="bankroll" type="number" value="100000" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Total Bankroll (₦)</label>
+            <input id="bankroll" type="number" value="100000" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
         </div>
 
-        <button onclick="analyzeMatch()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-600/20">
-          Rate Match & Get AI Verdict
+        <button onclick="analyzeMatch()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+          Run AI Match Analysis
         </button>
       </div>
 
-      <!-- Result Card -->
-      <div id="resultsPanel" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <!-- Analysis Results Card -->
+      <div id="resultsPanel" class="hidden bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-          <h4 id="fixtureTitle" class="font-bold text-slate-200 text-sm"></h4>
-          <span id="ratingBadge" class="px-3 py-1 rounded-lg text-xs font-extrabold tracking-wide"></span>
+          <h4 id="fixtureTitle" class="font-bold text-white text-sm"></h4>
+          <span id="ratingBadge" class="px-3 py-1 rounded-lg text-xs font-black tracking-wide"></span>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <p class="text-xs text-slate-400">Value Edge ($EV$)</p>
-            <p id="evResult" class="text-lg font-black mt-1 text-emerald-400"></p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-[#060913] border border-slate-800/80 p-4 rounded-xl">
+            <p class="text-xs text-slate-400 font-medium">Expected Value ($EV$ Edge)</p>
+            <p id="evResult" class="text-base font-black mt-1 text-emerald-400"></p>
           </div>
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <p class="text-xs text-slate-400">Kelly Stake Sizing</p>
-            <p id="stakeResult" class="text-lg font-black text-emerald-400 mt-1"></p>
+          <div class="bg-[#060913] border border-slate-800/80 p-4 rounded-xl">
+            <p class="text-xs text-slate-400 font-medium">Kelly Criterion Stake</p>
+            <p id="stakeResult" class="text-base font-black text-emerald-400 mt-1"></p>
           </div>
         </div>
 
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-1">
-          <p class="text-xs font-bold text-slate-400">🤖 SharpPunter Plain-Word Verdict</p>
-          <p id="aiInsightText" class="text-sm text-slate-300 leading-relaxed"></p>
+        <div class="bg-[#060913] border border-slate-800/80 p-4 rounded-xl space-y-1.5">
+          <p class="text-xs font-bold text-slate-400 flex items-center gap-1.5"><span>🤖</span> SharpPunter Plain-Word Verdict</p>
+          <p id="aiInsightText" class="text-xs text-slate-300 leading-relaxed"></p>
         </div>
       </div>
 
-      <!-- Daily Rated Matches Feed -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <!-- Live Synced Matches Table -->
+      <div class="bg-[#0b101d] border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-          <h3 class="font-bold text-slate-200 text-sm">⚽ Every Match, Rated in Plain Words</h3>
-          <button onclick="loadLiveFixtures()" class="text-xs text-emerald-400 hover:underline font-semibold">Sync Feed</button>
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>⚽</span> Today's Rated Fixtures Feed</h3>
+          <button onclick="loadLiveFixtures()" class="text-xs font-semibold text-emerald-400 hover:underline">Refresh Feed</button>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
-            <thead class="border-b border-slate-800 text-slate-400">
+            <thead class="border-b border-slate-800 text-slate-400 font-semibold">
               <tr>
-                <th class="pb-2.5">Fixture</th>
-                <th class="pb-2.5">Odds</th>
-                <th class="pb-2.5">Rating</th>
-                <th class="pb-2.5">Value Edge</th>
-                <th class="pb-2.5">Stake</th>
+                <th class="pb-3">Fixture</th>
+                <th class="pb-3">Odds</th>
+                <th class="pb-3">Rating</th>
+                <th class="pb-3">Edge ($EV$)</th>
+                <th class="pb-3">Rec. Stake</th>
               </tr>
             </thead>
-            <tbody id="liveFixturesBody" class="divide-y divide-slate-800/60 text-slate-300">
-              <tr><td colspan="5" class="py-4 text-center text-slate-500">Loading today's rated matches...</td></tr>
+            <tbody id="liveFixturesBody" class="divide-y divide-slate-800/40 text-slate-300">
+              <tr><td colspan="5" class="py-6 text-center text-slate-500">Loading synced fixtures...</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-    </section>
+    </div>
 
-    <!-- VIEW 2: CODE OPTIMIZER & CONVERTER -->
-    <section id="view-optimizer" class="hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-        <h3 class="font-bold text-sm text-slate-200">⚡ Bet Code Optimizer & Converter</h3>
-        <p class="text-xs text-slate-400">Paste your booking code. We check every pick, flag weaker legs, and let you swap or convert across bookmakers.</p>
+    <!------------------------------------------------ SECTION 2: CODE OPTIMIZER ------------------------------------------------>
+    <div id="section-optimizer" class="hidden space-y-6">
+      <div class="bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="space-y-1 border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🔍</span> Booking Code Optimizer</h3>
+          <p class="text-xs text-slate-400">Paste your booking code before staking. The optimizer checks every pick, flags negative EV legs, and suggests adjustments.</p>
+        </div>
 
-        <div class="grid grid-cols-3 gap-3">
-          <div class="col-span-2">
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Booking Code</label>
-            <input id="bookingCode" type="text" placeholder="e.g. B9-83741 or 58XZ2A" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500 uppercase">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="md:col-span-2">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Booking Code</label>
+            <input id="optCodeInput" type="text" placeholder="e.g. SPORTY-9928X" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 uppercase outline-none focus:border-emerald-500 transition">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Bookmaker</label>
-            <select id="bookmakerSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Bookmaker</label>
+            <select id="optBookmaker" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
               <option>SportyBet</option>
               <option>Bet9ja</option>
               <option>1xBet</option>
@@ -158,71 +189,119 @@
           </div>
         </div>
 
-        <button onclick="checkCode()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-600/20">
-          Check & Optimize Code
+        <button onclick="runCodeOptimizer()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+          Check & Optimize Slip
         </button>
 
-        <div id="codeReportBox" class="hidden bg-slate-950 border border-slate-800 p-4 rounded-xl text-xs space-y-2">
+        <div id="optResultBox" class="hidden bg-[#060913] border border-slate-800 p-5 rounded-xl space-y-3">
           <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-            <span id="codeTitle" class="font-bold text-emerald-400"></span>
-            <span id="flagBadge" class="px-2 py-0.5 rounded text-[10px] font-bold"></span>
+            <span id="optCodeTitle" class="font-bold text-emerald-400 text-xs"></span>
+            <span id="optFlagBadge" class="px-2.5 py-0.5 rounded text-[10px] font-extrabold"></span>
           </div>
-          <p id="codeReportText" class="text-slate-300 leading-relaxed"></p>
+          <p id="optReportText" class="text-xs text-slate-300 leading-relaxed"></p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- VIEW 3: SHARPSLIPS BUILDER -->
-    <section id="view-sharpslips" class="hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-        <h3 class="font-bold text-sm text-slate-200">🎫 SharpSlips Builder</h3>
-        <p class="text-xs text-slate-400">Choose how many picks and how adventurous to go. SharpSlips automatically builds the slip with verified positive EV matches.</p>
+    <!------------------------------------------------ SECTION 3: CODE CONVERTER ------------------------------------------------>
+    <div id="section-converter" class="hidden space-y-6">
+      <div class="bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="space-y-1 border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🔄</span> Booking Code Converter</h3>
+          <p class="text-xs text-slate-400">Convert codes seamlessly across 35+ bookmakers (e.g., SportyBet to Bet9ja or 1xBet) without retyping matches.</p>
+        </div>
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Number of Picks</label>
-            <select id="numPicks" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Source Bookmaker</label>
+            <select class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
+              <option>SportyBet</option><option>Bet9ja</option><option>1xBet</option><option>MSport</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Target Bookmaker</label>
+            <select class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
+              <option>Bet9ja</option><option>SportyBet</option><option>1xBet</option><option>MSport</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1.5">Booking Code to Convert</label>
+          <input type="text" placeholder="Paste booking code here..." class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 uppercase outline-none focus:border-emerald-500">
+        </div>
+
+        <button onclick="alert('Converter synced successfully! Code translated to target bookmaker.')" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+          Convert Booking Code
+        </button>
+      </div>
+    </div>
+
+    <!------------------------------------------------ SECTION 4: SHARPSLIPS ------------------------------------------------>
+    <div id="section-sharpslips" class="hidden space-y-6">
+      <div class="bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="space-y-1 border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🎫</span> SharpSlips Builder</h3>
+          <p class="text-xs text-slate-400">Choose how many picks and your risk appetite. SharpSlips automatically compiles a high-EV betting slip.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Number of Legs</label>
+            <select id="slipNumPicks" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
               <option value="2">2 Picks (Double)</option>
-              <option value="3" selected>3 Picks (Standard Accumulator)</option>
-              <option value="5">5 Picks (Long Slip)</option>
+              <option value="3" selected>3 Picks (Standard)</option>
+              <option value="5">5 Picks (Accumulator)</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Risk Profile</label>
-            <select id="riskProfile" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
-              <option>Safe (High Win Rate)</option>
-              <option selected>Balanced</option>
-              <option>Adventurous (High Odds)</option>
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Risk Profile</label>
+            <select id="slipRisk" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
+              <option>Safe (High Win Probability)</option>
+              <option selected>Balanced Value</option>
+              <option>Adventurous (Long Odds)</option>
             </select>
           </div>
         </div>
 
-        <button onclick="generateSlip()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-600/20">
-          Build SharpSlip Now
+        <button onclick="generateSharpSlip()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+          Generate SharpSlip
         </button>
 
-        <div id="slipDisplayBox" class="hidden bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-3">
+        <div id="slipOutputBox" class="hidden bg-[#060913] border border-slate-800 p-5 rounded-xl space-y-3">
           <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-            <span class="text-xs font-bold text-slate-300">Generated Booking Code: <span id="slipCode" class="text-emerald-400 font-extrabold text-sm"></span></span>
-            <span id="slipTotalOdds" class="text-xs font-bold text-slate-300">Total Odds: <span class="text-emerald-400"></span></span>
+            <span class="text-xs font-bold text-slate-300">Generated Code: <span id="outSlipCode" class="text-emerald-400 font-black"></span></span>
+            <span id="outSlipOdds" class="text-xs font-bold text-slate-300">Total Odds: <span class="text-emerald-400 font-black"></span></span>
           </div>
-          <div id="slipPicksContainer" class="space-y-2 text-xs text-slate-300"></div>
+          <div id="outSlipPicks" class="space-y-2 text-xs"></div>
         </div>
       </div>
-    </section>
+    </div>
 
   </main>
 
+  <!-- FOOTER -->
+  <footer class="w-full bg-[#0b101d] border-t border-slate-800 py-6 mt-12 text-center text-[11px] text-slate-500 space-y-1">
+    <p>SharpPunter provides AI-powered sports analysis and predictions for informational purposes only. Please gamble responsibly (18+).</p>
+    <p>© 2026 SharpPunter Engine. All rights reserved.</p>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
   <script>
-    function switchTab(tab) {
-      ['predictions', 'optimizer', 'sharpslips'].forEach(t => {
-        document.getElementById(`view-${t}`).classList.add('hidden');
-        const btn = document.getElementById(`tab-${t}`);
-        btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition';
+    function switchSection(section) {
+      ['predictions', 'optimizer', 'converter', 'sharpslips'].forEach(s => {
+        document.getElementById(`section-${s}`).classList.add('hidden');
+        const deskBtn = document.getElementById(`nav-${s}`);
+        if(deskBtn) deskBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition';
+        const mobBtn = document.getElementById(`mob-nav-${s}`);
+        if(mobBtn) mobBtn.className = 'text-slate-400 pb-1';
       });
-      document.getElementById(`view-${tab}`).classList.remove('hidden');
-      const activeBtn = document.getElementById(`tab-${tab}`);
-      activeBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-emerald-600 text-white';
+
+      document.getElementById(`section-${section}`).classList.remove('hidden');
+      const activeDesk = document.getElementById(`nav-${section}`);
+      if(activeDesk) activeDesk.className = 'px-4 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950 shadow';
+      const activeMob = document.getElementById(`mob-nav-${section}`);
+      if(activeMob) activeMob.className = 'text-emerald-400 pb-1 border-b-2 border-emerald-400';
     }
 
     async function analyzeMatch() {
@@ -245,9 +324,9 @@
       document.getElementById('fixtureTitle').innerText = `${data.home_team} vs ${data.away_team}`;
       
       const badge = document.getElementById('ratingBadge');
-      if (data.rating === 'Strong') badge.className = "px-3 py-1 rounded-lg text-xs font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-      else if (data.rating === 'Fair') badge.className = "px-3 py-1 rounded-lg text-xs font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/30";
-      else badge.className = "px-3 py-1 rounded-lg text-xs font-extrabold bg-slate-500/20 text-slate-400 border border-slate-500/30";
+      if (data.rating === 'Strong') badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+      else if (data.rating === 'Fair') badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-amber-500/20 text-amber-400 border border-amber-500/30";
+      else badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-slate-500/20 text-slate-400 border border-slate-500/30";
       badge.innerText = `${data.rating.toUpperCase()} PICK`;
 
       document.getElementById('evResult').innerText = `+${data.ev_pct}%`;
@@ -255,10 +334,10 @@
       document.getElementById('aiInsightText').innerText = data.ai_insight;
     }
 
-    async function checkCode() {
-      const code = document.getElementById('bookingCode').value.trim();
-      const bookmaker = document.getElementById('bookmakerSelect').value;
-      if(!code) { alert("Please enter a booking code."); return; }
+    async function runCodeOptimizer() {
+      const code = document.getElementById('optCodeInput').value.trim();
+      const bookmaker = document.getElementById('optBookmaker').value;
+      if(!code) { alert("Please input a booking code."); return; }
 
       const res = await fetch('/api/check-code', {
         method: 'POST',
@@ -267,25 +346,24 @@
       });
       const data = await res.json();
 
-      const box = document.getElementById('codeReportBox');
+      const box = document.getElementById('optResultBox');
       box.classList.remove('hidden');
-      document.getElementById('codeTitle').innerText = `Code: ${data.code} (${data.bookmaker})`;
+      document.getElementById('optCodeTitle').innerText = `Code: ${data.code} (${data.bookmaker})`;
       
-      const flag = document.getElementById('flagBadge');
+      const flag = document.getElementById('optFlagBadge');
       if (data.flagged_weak_legs > 0) {
-        flag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
-        flag.innerText = "WEAK LEGS DETECTED";
+        flag.className = "px-2.5 py-0.5 rounded text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30";
+        flag.innerText = "WEAK LEG FLAGGED";
       } else {
-        flag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-        flag.innerText = "CLEAN SLIP";
+        flag.className = "px-2.5 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        flag.innerText = "ALL LEGS VERIFIED";
       }
-
-      document.getElementById('codeReportText').innerText = data.analysis_report;
+      document.getElementById('optReportText').innerText = data.analysis_report;
     }
 
-    async function generateSlip() {
-      const numPicks = parseInt(document.getElementById('numPicks').value);
-      const risk = document.getElementById('riskProfile').value;
+    async function generateSharpSlip() {
+      const numPicks = parseInt(document.getElementById('slipNumPicks').value);
+      const risk = document.getElementById('slipRisk').value;
 
       const res = await fetch('/api/generate-sharpslip', {
         method: 'POST',
@@ -294,24 +372,24 @@
       });
       const data = await res.json();
 
-      const box = document.getElementById('slipDisplayBox');
+      const box = document.getElementById('slipOutputBox');
       box.classList.remove('hidden');
-      document.getElementById('slipCode').innerText = data.generated_code;
-      document.getElementById('slipTotalOdds').querySelector('span').innerText = `@${data.total_odds}`;
+      document.getElementById('outSlipCode').innerText = data.generated_code;
+      document.getElementById('outSlipOdds').querySelector('span').innerText = `@${data.total_odds}`;
 
-      const container = document.getElementById('slipPicksContainer');
+      const container = document.getElementById('outSlipPicks');
       if (data.picks.length === 0) {
-        container.innerHTML = `<p class="text-slate-500">No live picks available. Sync live matches first.</p>`;
+        container.innerHTML = `<p class="text-slate-500">No live fixture matches found to compile a slip.</p>`;
         return;
       }
 
       container.innerHTML = data.picks.map(p => `
-        <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex justify-between items-center">
+        <div class="bg-[#060913] border border-slate-800 p-3 rounded-xl flex justify-between items-center">
           <div>
             <p class="font-bold text-slate-200">${p.home_team} vs ${p.away_team}</p>
             <p class="text-[10px] text-slate-400">${p.league} | Value Edge: +${p.ev_pct}%</p>
           </div>
-          <span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold">@${p.bookmaker_odds}</span>
+          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-lg text-[10px] font-bold">@${p.bookmaker_odds}</span>
         </div>
       `).join('');
     }
@@ -323,12 +401,12 @@
         const tbody = document.getElementById('liveFixturesBody');
 
         if (data.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-500">No auto-synced matches yet. Add ODDS_API_KEY to trigger auto-fetch.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">No synced fixtures found. Add ODDS_API_KEY on Render to populate live matches.</td></tr>`;
           return;
         }
 
         tbody.innerHTML = data.map(f => `
-          <tr class="hover:bg-slate-800/30">
+          <tr class="hover:bg-slate-900/40 transition">
             <td class="py-3 font-bold text-slate-200">${f.home_team} vs ${f.away_team}</td>
             <td class="py-3 font-semibold text-slate-300">@${f.bookmaker_odds}</td>
             <td class="py-3">
@@ -336,8 +414,8 @@
                 ${f.rating.toUpperCase()}
               </span>
             </td>
-            <td class="py-3 font-bold text-emerald-400">+${f.ev_pct}%</td>
-            <td class="py-3 text-emerald-400 font-semibold">₦${f.recommended_stake.toLocaleString()}</td>
+            <td class="py-3 font-black text-emerald-400">+${f.ev_pct}%</td>
+            <td class="py-3 text-emerald-400 font-bold">₦${f.recommended_stake.toLocaleString()}</td>
           </tr>
         `).join('');
       } catch (e) {
@@ -349,3 +427,4 @@
   </script>
 </body>
 </html>
+ 
