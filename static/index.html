@@ -3,147 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SportsBet AI - EV Engine & Market Scanner</title>
+  <title>SharpPunter - AI Sports Predictions & Bet Code Optimizer</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-6 font-sans flex flex-col items-center">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col items-center">
 
-  <div class="w-full max-w-3xl space-y-6">
-    <!-- Header -->
-    <header class="border-b border-slate-800 pb-4 flex justify-between items-center">
+  <!-- Top Navigation Header -->
+  <header class="w-full bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3.5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <h1 class="text-lg font-black tracking-wider text-emerald-400 flex items-center gap-1.5">
+          <span>🎯</span> SHARP<span class="text-white">PUNTER</span>
+        </h1>
+        <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded">AI PREDICTIONS</span>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="switchTab('predictions')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-emerald-600 text-white" id="tab-predictions">Predictions</button>
+        <button onclick="switchTab('optimizer')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition" id="tab-optimizer">Code Optimizer</button>
+        <button onclick="switchTab('sharpslips')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition" id="tab-sharpslips">SharpSlips</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-4xl px-4 py-6 space-y-6">
+
+    <!-- HOT PICKS OF THE DAY BANNER -->
+    <div class="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 border border-emerald-500/30 rounded-2xl p-5 shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <div>
-        <h1 class="text-xl font-bold text-emerald-400 flex items-center gap-2">⚽ SportsBet AI Engine</h1>
-        <p class="text-xs text-slate-400">Deterministic EV Model + SQLite Database + Auto Sync</p>
+        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold px-2.5 py-1 rounded-full tracking-wide">HOT PICK OF THE DAY</span>
+        <h2 class="text-lg font-bold text-white mt-2">Arsenal vs Chelsea</h2>
+        <p class="text-xs text-slate-300">Market: Home Win | Bookmaker Odds: 2.10 | Value Edge: +8.5%</p>
       </div>
-      <button onclick="loadHistory(); loadLiveFixtures();" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 rounded text-xs text-slate-300 transition">
-        🔄 Refresh Data
-      </button>
-    </header>
+      <div class="flex items-center gap-3">
+        <span class="bg-emerald-500 text-slate-950 font-black text-xs px-3 py-1.5 rounded-lg shadow-md">STRONG PICK</span>
+        <button onclick="switchTab('predictions')" class="text-xs font-semibold text-emerald-400 hover:underline">View Analysis →</button>
+      </div>
+    </div>
 
-    <!-- Manual Fixture Analyzer -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
-      <h2 class="font-semibold text-sm text-slate-300">New Fixture Analysis</h2>
+    <!-- VIEW 1: PREDICTIONS & AI EVALUATOR -->
+    <section id="view-predictions" class="space-y-6">
       
-      <div class="grid grid-cols-3 gap-3">
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Home Team</label>
-          <input id="homeTeam" type="text" value="Arsenal" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Away Team</label>
-          <input id="awayTeam" type="text" value="Chelsea" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Market Segment</label>
-          <select id="marketType" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
-            <option>1X2 (Match Winner)</option>
-            <option>Over/Under Goals</option>
-            <option>Lower Tier / Niche Market</option>
-          </select>
-        </div>
-      </div>
+      <!-- Custom Match Analyzer -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h3 class="font-bold text-sm text-slate-200">🔍 AI Match Prediction Engine</h3>
+        <p class="text-xs text-slate-400">Analyze any fixture to get plain-word pick ratings (Strong, Fair, Slim) and Kelly stake sizing.</p>
 
-      <div class="grid grid-cols-3 gap-3">
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Bookmaker Odds</label>
-          <input id="odds" type="number" step="0.01" value="2.20" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Home Team</label>
+            <input id="homeTeam" type="text" value="Real Madrid" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Away Team</label>
+            <input id="awayTeam" type="text" value="Barcelona" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Model Win Prob (%)</label>
-          <input id="winProb" type="number" step="1" value="55" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Bookmaker Odds</label>
+            <input id="odds" type="number" step="0.01" value="2.05" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Model Win Prob (%)</label>
+            <input id="winProb" type="number" step="1" value="58" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Bankroll Unit</label>
+            <input id="bankroll" type="number" value="100000" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1">Bankroll Unit</label>
-          <input id="bankroll" type="number" value="100000" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
-        </div>
-      </div>
 
-      <button onclick="analyzeFixture()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-sm transition shadow-lg shadow-emerald-600/20">
-        Run AI Edge Analysis & Log Result
-      </button>
-    </div>
-
-    <!-- Results Panel -->
-    <div id="resultsPanel" class="hidden bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 id="fixtureTitle" class="font-bold text-slate-200 text-base">Match Analysis</h3>
-        <span id="valueBadge" class="px-3 py-1 rounded text-xs font-bold"></span>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-lg">
-          <p class="text-xs text-slate-400">Expected Value ($EV$)</p>
-          <p id="evResult" class="text-lg font-bold mt-1"></p>
-        </div>
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-lg">
-          <p class="text-xs text-slate-400">Kelly Recommended Stake</p>
-          <p id="stakeResult" class="text-lg font-bold text-emerald-400 mt-1"></p>
-        </div>
-      </div>
-
-      <div class="bg-slate-950 border border-slate-800 p-4 rounded-lg space-y-1">
-        <p class="text-xs font-semibold text-slate-400">🤖 AI Tactical Insight</p>
-        <p id="aiInsightText" class="text-sm text-slate-300 leading-relaxed"></p>
-      </div>
-    </div>
-
-    <!-- Auto-Synced Live Market Opportunities -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="font-bold text-slate-200 text-sm">🔥 Auto-Synced Live Market Bets (2x Daily Sync)</h3>
-        <button onclick="syncFixtures()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded text-xs text-white font-semibold shadow">
-          ⚡ Trigger Manual Sync
+        <button onclick="analyzeMatch()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-600/20">
+          Rate Match & Get AI Verdict
         </button>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
-          <thead class="border-b border-slate-800 text-slate-400">
-            <tr>
-              <th class="pb-2">Fixture</th>
-              <th class="pb-2">Odds</th>
-              <th class="pb-2">Model Prob</th>
-              <th class="pb-2">EV Edge</th>
-              <th class="pb-2">Kelly Stake</th>
-            </tr>
-          </thead>
-          <tbody id="liveFixturesBody" class="divide-y divide-slate-800/60 text-slate-300">
-            <!-- Auto populated -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <!-- Result Card -->
+      <div id="resultsPanel" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h4 id="fixtureTitle" class="font-bold text-slate-200 text-sm"></h4>
+          <span id="ratingBadge" class="px-3 py-1 rounded-lg text-xs font-extrabold tracking-wide"></span>
+        </div>
 
-    <!-- SQLite Betting History Table -->
-    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
-      <h3 class="font-semibold text-sm text-slate-300">Saved History Log (SQLite DB)</h3>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
-          <thead class="border-b border-slate-800 text-slate-400">
-            <tr>
-              <th class="pb-2">Time</th>
-              <th class="pb-2">Fixture</th>
-              <th class="pb-2">Market</th>
-              <th class="pb-2">Odds</th>
-              <th class="pb-2">EV</th>
-              <th class="pb-2">Stake</th>
-            </tr>
-          </thead>
-          <tbody id="historyTableBody" class="divide-y divide-slate-800/60 text-slate-300">
-            <!-- Auto populated -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <p class="text-xs text-slate-400">Value Edge ($EV$)</p>
+            <p id="evResult" class="text-lg font-black mt-1 text-emerald-400"></p>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <p class="text-xs text-slate-400">Kelly Stake Sizing</p>
+            <p id="stakeResult" class="text-lg font-black text-emerald-400 mt-1"></p>
+          </div>
+        </div>
 
-  </div>
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-1">
+          <p class="text-xs font-bold text-slate-400">🤖 SharpPunter Plain-Word Verdict</p>
+          <p id="aiInsightText" class="text-sm text-slate-300 leading-relaxed"></p>
+        </div>
+      </div>
+
+      <!-- Daily Rated Matches Feed -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <h3 class="font-bold text-slate-200 text-sm">⚽ Every Match, Rated in Plain Words</h3>
+          <button onclick="loadLiveFixtures()" class="text-xs text-emerald-400 hover:underline font-semibold">Sync Feed</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="border-b border-slate-800 text-slate-400">
+              <tr>
+                <th class="pb-2.5">Fixture</th>
+                <th class="pb-2.5">Odds</th>
+                <th class="pb-2.5">Rating</th>
+                <th class="pb-2.5">Value Edge</th>
+                <th class="pb-2.5">Stake</th>
+              </tr>
+            </thead>
+            <tbody id="liveFixturesBody" class="divide-y divide-slate-800/60 text-slate-300">
+              <tr><td colspan="5" class="py-4 text-center text-slate-500">Loading today's rated matches...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- VIEW 2: CODE OPTIMIZER & CONVERTER -->
+    <section id="view-optimizer" class="hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h3 class="font-bold text-sm text-slate-200">⚡ Bet Code Optimizer & Converter</h3>
+        <p class="text-xs text-slate-400">Paste your booking code. We check every pick, flag weaker legs, and let you swap or convert across bookmakers.</p>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div class="col-span-2">
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Booking Code</label>
+            <input id="bookingCode" type="text" placeholder="e.g. B9-83741 or 58XZ2A" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500 uppercase">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Bookmaker</label>
+            <select id="bookmakerSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+              <option>SportyBet</option>
+              <option>Bet9ja</option>
+              <option>1xBet</option>
+              <option>MSport</option>
+              <option>Betika</option>
+            </select>
+          </div>
+        </div>
+
+        <button onclick="checkCode()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-600/20">
+          Check & Optimize Code
+        </button>
+
+        <div id="codeReportBox" class="hidden bg-slate-950 border border-slate-800 p-4 rounded-xl text-xs space-y-2">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+            <span id="codeTitle" class="font-bold text-emerald-400"></span>
+            <span id="flagBadge" class="px-2 py-0.5 rounded text-[10px] font-bold"></span>
+          </div>
+          <p id="codeReportText" class="text-slate-300 leading-relaxed"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: SHARPSLIPS BUILDER -->
+    <section id="view-sharpslips" class="hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h3 class="font-bold text-sm text-slate-200">🎫 SharpSlips Builder</h3>
+        <p class="text-xs text-slate-400">Choose how many picks and how adventurous to go. SharpSlips automatically builds the slip with verified positive EV matches.</p>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Number of Picks</label>
+            <select id="numPicks" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+              <option value="2">2 Picks (Double)</option>
+              <option value="3" selected>3 Picks (Standard Accumulator)</option>
+              <option value="5">5 Picks (Long Slip)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Risk Profile</label>
+            <select id="riskProfile" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500">
+              <option>Safe (High Win Rate)</option>
+              <option selected>Balanced</option>
+              <option>Adventurous (High Odds)</option>
+            </select>
+          </div>
+        </div>
+
+        <button onclick="generateSlip()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-600/20">
+          Build SharpSlip Now
+        </button>
+
+        <div id="slipDisplayBox" class="hidden bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+            <span class="text-xs font-bold text-slate-300">Generated Booking Code: <span id="slipCode" class="text-emerald-400 font-extrabold text-sm"></span></span>
+            <span id="slipTotalOdds" class="text-xs font-bold text-slate-300">Total Odds: <span class="text-emerald-400"></span></span>
+          </div>
+          <div id="slipPicksContainer" class="space-y-2 text-xs text-slate-300"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <script>
-    async function analyzeFixture() {
+    function switchTab(tab) {
+      ['predictions', 'optimizer', 'sharpslips'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${t}`);
+        btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 transition';
+      });
+      document.getElementById(`view-${tab}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tab}`);
+      activeBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-emerald-600 text-white';
+    }
+
+    async function analyzeMatch() {
       const payload = {
         home_team: document.getElementById('homeTeam').value,
         away_team: document.getElementById('awayTeam').value,
-        market_type: document.getElementById('marketType').value,
         bookmaker_odds: parseFloat(document.getElementById('odds').value),
         model_win_prob: parseFloat(document.getElementById('winProb').value) / 100.0,
         bankroll: parseFloat(document.getElementById('bankroll').value)
@@ -159,26 +244,76 @@
       document.getElementById('resultsPanel').classList.remove('hidden');
       document.getElementById('fixtureTitle').innerText = `${data.home_team} vs ${data.away_team}`;
       
-      const badge = document.getElementById('valueBadge');
-      badge.className = data.is_value 
-        ? "px-3 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-        : "px-3 py-1 rounded text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
-      badge.innerText = data.is_value ? "✅ POSITIVE EV EDGE" : "❌ NO VALUE";
+      const badge = document.getElementById('ratingBadge');
+      if (data.rating === 'Strong') badge.className = "px-3 py-1 rounded-lg text-xs font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+      else if (data.rating === 'Fair') badge.className = "px-3 py-1 rounded-lg text-xs font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/30";
+      else badge.className = "px-3 py-1 rounded-lg text-xs font-extrabold bg-slate-500/20 text-slate-400 border border-slate-500/30";
+      badge.innerText = `${data.rating.toUpperCase()} PICK`;
 
-      const evEl = document.getElementById('evResult');
-      evEl.innerText = `${data.ev_percentage > 0 ? '+' : ''}${data.ev_percentage}%`;
-      evEl.className = `text-lg font-bold mt-1 ${data.ev_percentage > 0 ? 'text-emerald-400' : 'text-rose-400'}`;
-
-      document.getElementById('stakeResult').innerText = `₦${data.recommended_stake.toLocaleString()} (${data.stake_percentage}%)`;
+      document.getElementById('evResult').innerText = `+${data.ev_pct}%`;
+      document.getElementById('stakeResult').innerText = `₦${data.recommended_stake.toLocaleString()} (${data.stake_pct}%)`;
       document.getElementById('aiInsightText').innerText = data.ai_insight;
-
-      loadHistory();
     }
 
-    async function syncFixtures() {
-      await fetch('/api/sync-fixtures', { method: 'POST' });
-      alert("Background sync started. Table will update in 3 seconds.");
-      setTimeout(loadLiveFixtures, 3000);
+    async function checkCode() {
+      const code = document.getElementById('bookingCode').value.trim();
+      const bookmaker = document.getElementById('bookmakerSelect').value;
+      if(!code) { alert("Please enter a booking code."); return; }
+
+      const res = await fetch('/api/check-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ booking_code: code, bookmaker: bookmaker })
+      });
+      const data = await res.json();
+
+      const box = document.getElementById('codeReportBox');
+      box.classList.remove('hidden');
+      document.getElementById('codeTitle').innerText = `Code: ${data.code} (${data.bookmaker})`;
+      
+      const flag = document.getElementById('flagBadge');
+      if (data.flagged_weak_legs > 0) {
+        flag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
+        flag.innerText = "WEAK LEGS DETECTED";
+      } else {
+        flag.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        flag.innerText = "CLEAN SLIP";
+      }
+
+      document.getElementById('codeReportText').innerText = data.analysis_report;
+    }
+
+    async function generateSlip() {
+      const numPicks = parseInt(document.getElementById('numPicks').value);
+      const risk = document.getElementById('riskProfile').value;
+
+      const res = await fetch('/api/generate-sharpslip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ num_picks: numPicks, risk_profile: risk })
+      });
+      const data = await res.json();
+
+      const box = document.getElementById('slipDisplayBox');
+      box.classList.remove('hidden');
+      document.getElementById('slipCode').innerText = data.generated_code;
+      document.getElementById('slipTotalOdds').querySelector('span').innerText = `@${data.total_odds}`;
+
+      const container = document.getElementById('slipPicksContainer');
+      if (data.picks.length === 0) {
+        container.innerHTML = `<p class="text-slate-500">No live picks available. Sync live matches first.</p>`;
+        return;
+      }
+
+      container.innerHTML = data.picks.map(p => `
+        <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex justify-between items-center">
+          <div>
+            <p class="font-bold text-slate-200">${p.home_team} vs ${p.away_team}</p>
+            <p class="text-[10px] text-slate-400">${p.league} | Value Edge: +${p.ev_pct}%</p>
+          </div>
+          <span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold">@${p.bookmaker_odds}</span>
+        </div>
+      `).join('');
     }
 
     async function loadLiveFixtures() {
@@ -188,52 +323,28 @@
         const tbody = document.getElementById('liveFixturesBody');
 
         if (data.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-500">No live fixtures synced. Click Trigger Manual Sync above or configure ODDS_API_KEY.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-500">No auto-synced matches yet. Add ODDS_API_KEY to trigger auto-fetch.</td></tr>`;
           return;
         }
 
         tbody.innerHTML = data.map(f => `
           <tr class="hover:bg-slate-800/30">
-            <td class="py-2.5 font-semibold text-slate-200">${f.home_team} vs ${f.away_team}</td>
-            <td class="py-2.5">${f.bookmaker_odds}</td>
-            <td class="py-2.5">${(f.estimated_win_prob * 100).toFixed(0)}%</td>
-            <td class="py-2.5 font-bold ${f.ev_pct > 0 ? 'text-emerald-400' : 'text-rose-400'}">${f.ev_pct > 0 ? '+' : ''}${f.ev_pct}%</td>
-            <td class="py-2.5 text-emerald-400">₦${f.recommended_stake.toLocaleString()}</td>
+            <td class="py-3 font-bold text-slate-200">${f.home_team} vs ${f.away_team}</td>
+            <td class="py-3 font-semibold text-slate-300">@${f.bookmaker_odds}</td>
+            <td class="py-3">
+              <span class="px-2.5 py-1 rounded text-[10px] font-extrabold ${f.rating === 'Strong' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">
+                ${f.rating.toUpperCase()}
+              </span>
+            </td>
+            <td class="py-3 font-bold text-emerald-400">+${f.ev_pct}%</td>
+            <td class="py-3 text-emerald-400 font-semibold">₦${f.recommended_stake.toLocaleString()}</td>
           </tr>
         `).join('');
-      } catch (err) {
-        console.error("Failed to load live fixtures");
+      } catch (e) {
+        console.error("Failed to load live feed.");
       }
     }
 
-    async function loadHistory() {
-      try {
-        const res = await fetch('/api/history');
-        const history = await res.json();
-        const tbody = document.getElementById('historyTableBody');
-        
-        if (history.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-slate-500">No saved bets in SQLite database yet.</td></tr>`;
-          return;
-        }
-
-        tbody.innerHTML = history.map(row => `
-          <tr class="hover:bg-slate-800/30">
-            <td class="py-2.5 text-slate-400">${row.timestamp}</td>
-            <td class="py-2.5 font-medium text-slate-200">${row.home_team} vs ${row.away_team}</td>
-            <td class="py-2.5 text-slate-400">${row.market_type}</td>
-            <td class="py-2.5">${row.odds}</td>
-            <td class="py-2.5 font-semibold ${row.ev_pct > 0 ? 'text-emerald-400' : 'text-rose-400'}">${row.ev_pct > 0 ? '+' : ''}${row.ev_pct}%</td>
-            <td class="py-2.5 text-emerald-400">₦${row.recommended_stake.toLocaleString()}</td>
-          </tr>
-        `).join('');
-      } catch (err) {
-        console.error("Failed to load history");
-      }
-    }
-
-    // Initial Load
-    loadHistory();
     loadLiveFixtures();
   </script>
 </body>
