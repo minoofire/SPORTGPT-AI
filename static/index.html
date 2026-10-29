@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportsBet AI - EV Engine & Market Scanner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 font-sans flex flex-col items-center">
+
+  <div class="w-full max-w-3xl space-y-6">
+    <!-- Header -->
+    <header class="border-b border-slate-800 pb-4 flex justify-between items-center">
+      <div>
+        <h1 class="text-xl font-bold text-emerald-400 flex items-center gap-2">⚽ SportsBet AI Engine</h1>
+        <p class="text-xs text-slate-400">Deterministic EV Model + SQLite Database + Auto Sync</p>
+      </div>
+      <button onclick="loadHistory(); loadLiveFixtures();" class="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:bg-slate-800 rounded text-xs text-slate-300 transition">
+        🔄 Refresh Data
+      </button>
+    </header>
+
+    <!-- Manual Fixture Analyzer -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
+      <h2 class="font-semibold text-sm text-slate-300">New Fixture Analysis</h2>
+      
+      <div class="grid grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Home Team</label>
+          <input id="homeTeam" type="text" value="Arsenal" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Away Team</label>
+          <input id="awayTeam" type="text" value="Chelsea" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Market Segment</label>
+          <select id="marketType" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+            <option>1X2 (Match Winner)</option>
+            <option>Over/Under Goals</option>
+            <option>Lower Tier / Niche Market</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Bookmaker Odds</label>
+          <input id="odds" type="number" step="0.01" value="2.20" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Model Win Prob (%)</label>
+          <input id="winProb" type="number" step="1" value="55" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Bankroll Unit</label>
+          <input id="bankroll" type="number" value="100000" class="w-full bg-slate-950 border border-slate-800 rounded p-2 text-sm text-slate-200 outline-none focus:border-emerald-500">
+        </div>
+      </div>
+
+      <button onclick="analyzeFixture()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-sm transition shadow-lg shadow-emerald-600/20">
+        Run AI Edge Analysis & Log Result
+      </button>
+    </div>
+
+    <!-- Results Panel -->
+    <div id="resultsPanel" class="hidden bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 id="fixtureTitle" class="font-bold text-slate-200 text-base">Match Analysis</h3>
+        <span id="valueBadge" class="px-3 py-1 rounded text-xs font-bold"></span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-lg">
+          <p class="text-xs text-slate-400">Expected Value ($EV$)</p>
+          <p id="evResult" class="text-lg font-bold mt-1"></p>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-lg">
+          <p class="text-xs text-slate-400">Kelly Recommended Stake</p>
+          <p id="stakeResult" class="text-lg font-bold text-emerald-400 mt-1"></p>
+        </div>
+      </div>
+
+      <div class="bg-slate-950 border border-slate-800 p-4 rounded-lg space-y-1">
+        <p class="text-xs font-semibold text-slate-400">🤖 AI Tactical Insight</p>
+        <p id="aiInsightText" class="text-sm text-slate-300 leading-relaxed"></p>
+      </div>
+    </div>
+
+    <!-- Auto-Synced Live Market Opportunities -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-slate-200 text-sm">🔥 Auto-Synced Live Market Bets (2x Daily Sync)</h3>
+        <button onclick="syncFixtures()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded text-xs text-white font-semibold shadow">
+          ⚡ Trigger Manual Sync
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="border-b border-slate-800 text-slate-400">
+            <tr>
+              <th class="pb-2">Fixture</th>
+              <th class="pb-2">Odds</th>
+              <th class="pb-2">Model Prob</th>
+              <th class="pb-2">EV Edge</th>
+              <th class="pb-2">Kelly Stake</th>
+            </tr>
+          </thead>
+          <tbody id="liveFixturesBody" class="divide-y divide-slate-800/60 text-slate-300">
+            <!-- Auto populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SQLite Betting History Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-4">
+      <h3 class="font-semibold text-sm text-slate-300">Saved History Log (SQLite DB)</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="border-b border-slate-800 text-slate-400">
+            <tr>
+              <th class="pb-2">Time</th>
+              <th class="pb-2">Fixture</th>
+              <th class="pb-2">Market</th>
+              <th class="pb-2">Odds</th>
+              <th class="pb-2">EV</th>
+              <th class="pb-2">Stake</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+            <!-- Auto populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function analyzeFixture() {
+      const payload = {
+        home_team: document.getElementById('homeTeam').value,
+        away_team: document.getElementById('awayTeam').value,
+        market_type: document.getElementById('marketType').value,
+        bookmaker_odds: parseFloat(document.getElementById('odds').value),
+        model_win_prob: parseFloat(document.getElementById('winProb').value) / 100.0,
+        bankroll: parseFloat(document.getElementById('bankroll').value)
+      };
+
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      document.getElementById('resultsPanel').classList.remove('hidden');
+      document.getElementById('fixtureTitle').innerText = `${data.home_team} vs ${data.away_team}`;
+      
+      const badge = document.getElementById('valueBadge');
+      badge.className = data.is_value 
+        ? "px-3 py-1 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+        : "px-3 py-1 rounded text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30";
+      badge.innerText = data.is_value ? "✅ POSITIVE EV EDGE" : "❌ NO VALUE";
+
+      const evEl = document.getElementById('evResult');
+      evEl.innerText = `${data.ev_percentage > 0 ? '+' : ''}${data.ev_percentage}%`;
+      evEl.className = `text-lg font-bold mt-1 ${data.ev_percentage > 0 ? 'text-emerald-400' : 'text-rose-400'}`;
+
+      document.getElementById('stakeResult').innerText = `₦${data.recommended_stake.toLocaleString()} (${data.stake_percentage}%)`;
+      document.getElementById('aiInsightText').innerText = data.ai_insight;
+
+      loadHistory();
+    }
+
+    async function syncFixtures() {
+      await fetch('/api/sync-fixtures', { method: 'POST' });
+      alert("Background sync started. Table will update in 3 seconds.");
+      setTimeout(loadLiveFixtures, 3000);
+    }
+
+    async function loadLiveFixtures() {
+      try {
+        const res = await fetch('/api/live-fixtures');
+        const data = await res.json();
+        const tbody = document.getElementById('liveFixturesBody');
+
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-500">No live fixtures synced. Click Trigger Manual Sync above or configure ODDS_API_KEY.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = data.map(f => `
+          <tr class="hover:bg-slate-800/30">
+            <td class="py-2.5 font-semibold text-slate-200">${f.home_team} vs ${f.away_team}</td>
+            <td class="py-2.5">${f.bookmaker_odds}</td>
+            <td class="py-2.5">${(f.estimated_win_prob * 100).toFixed(0)}%</td>
+            <td class="py-2.5 font-bold ${f.ev_pct > 0 ? 'text-emerald-400' : 'text-rose-400'}">${f.ev_pct > 0 ? '+' : ''}${f.ev_pct}%</td>
+            <td class="py-2.5 text-emerald-400">₦${f.recommended_stake.toLocaleString()}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error("Failed to load live fixtures");
+      }
+    }
+
+    async function loadHistory() {
+      try {
+        const res = await fetch('/api/history');
+        const history = await res.json();
+        const tbody = document.getElementById('historyTableBody');
+        
+        if (history.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-slate-500">No saved bets in SQLite database yet.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = history.map(row => `
+          <tr class="hover:bg-slate-800/30">
+            <td class="py-2.5 text-slate-400">${row.timestamp}</td>
+            <td class="py-2.5 font-medium text-slate-200">${row.home_team} vs ${row.away_team}</td>
+            <td class="py-2.5 text-slate-400">${row.market_type}</td>
+            <td class="py-2.5">${row.odds}</td>
+            <td class="py-2.5 font-semibold ${row.ev_pct > 0 ? 'text-emerald-400' : 'text-rose-400'}">${row.ev_pct > 0 ? '+' : ''}${row.ev_pct}%</td>
+            <td class="py-2.5 text-emerald-400">₦${row.recommended_stake.toLocaleString()}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error("Failed to load history");
+      }
+    }
+
+    // Initial Load
+    loadHistory();
+    loadLiveFixtures();
+  </script>
+</body>
+</html>
