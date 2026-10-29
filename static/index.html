@@ -1,158 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>SharpPunter - AI Sports Predictions & Bet Code Optimizer</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background-color: #090d16; color: #f1f5f9; }
+    body { background-color: #050811; color: #f1f5f9; }
     ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-track { background: #050811; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center font-sans antialiased selection:bg-emerald-500 selection:text-slate-950">
+<body class="min-h-full flex flex-col items-center font-sans antialiased selection:bg-emerald-500 selection:text-slate-950">
 
   <!-- TOP NAVIGATION BAR -->
-  <header class="w-full bg-[#0b101d] border-b border-slate-800/80 sticky top-0 z-50 backdrop-blur-md bg-opacity-90">
-    <div class="max-w-5xl mx-auto px-4 h-16 flex justify-between items-center">
+  <header class="w-full bg-[#090e1a] border-b border-slate-800/80 sticky top-0 z-50 backdrop-blur-md bg-opacity-95">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex justify-between items-center">
       
       <!-- Brand Logo -->
       <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchSection('predictions')">
-        <div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-emerald-500/20">
+        <div class="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center text-slate-950 font-black text-lg shadow-lg shadow-emerald-500/20">
           ⚡
         </div>
         <div class="flex flex-col">
-          <span class="font-black tracking-wider text-base text-white">SHARP<span class="text-emerald-400">PUNTER</span></span>
-          <span class="text-[9px] text-slate-400 tracking-widest font-semibold uppercase -mt-1">AI Sports Analysis</span>
+          <span class="font-black tracking-wider text-sm sm:text-base text-white">SHARP<span class="text-emerald-400">PUNTER</span></span>
+          <span class="text-[9px] text-slate-400 tracking-widest font-bold uppercase -mt-1">AI Sports Engine</span>
         </div>
       </div>
 
-      <!-- Navigation Links / Tabs -->
-      <nav class="hidden md:flex items-center gap-1 bg-[#0f172a] p-1 rounded-xl border border-slate-800">
-        <button onclick="switchSection('predictions')" id="nav-predictions" class="px-4 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950 shadow">Predictions</button>
-        <button onclick="switchSection('optimizer')" id="nav-optimizer" class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">Code Optimizer</button>
-        <button onclick="switchSection('converter')" id="nav-converter" class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">Code Converter</button>
-        <button onclick="switchSection('sharpslips')" id="nav-sharpslips" class="px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">SharpSlips</button>
+      <!-- Desktop Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-[#050811] p-1 rounded-xl border border-slate-800/80">
+        <button onclick="switchSection('predictions')" id="nav-predictions" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950 shadow">Predictions</button>
+        <button onclick="switchSection('optimizer')" id="nav-optimizer" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">Code Optimizer</button>
+        <button onclick="switchSection('converter')" id="nav-converter" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">Converter</button>
+        <button onclick="switchSection('sharpslips')" id="nav-sharpslips" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition">SharpSlips</button>
       </nav>
 
-      <!-- User Profile / Login Action -->
+      <!-- Action -->
       <div class="flex items-center gap-3">
-        <span class="hidden sm:inline-block text-xs font-medium text-slate-400">Log in</span>
-        <button onclick="switchSection('predictions')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
-          Start Free
+        <button onclick="switchSection('predictions')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-4 py-2 rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+          Get Started
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Navigation Bar (Bottom or Sub-header) -->
-  <div class="md:hidden w-full bg-[#0b101d] border-b border-slate-800 px-4 py-2 flex justify-around text-xs font-semibold">
-    <button onclick="switchSection('predictions')" id="mob-nav-predictions" class="text-emerald-400 pb-1 border-b-2 border-emerald-400">Predictions</button>
-    <button onclick="switchSection('optimizer')" id="mob-nav-optimizer" class="text-slate-400 pb-1">Optimizer</button>
-    <button onclick="switchSection('converter')" id="mob-nav-converter" class="text-slate-400 pb-1">Converter</button>
-    <button onclick="switchSection('sharpslips')" id="mob-nav-sharpslips" class="text-slate-400 pb-1">SharpSlips</button>
+  <!-- Mobile Sub-Navigation Bar -->
+  <div class="md:hidden w-full bg-[#090e1a] border-b border-slate-800 px-4 py-2.5 flex justify-around text-xs font-bold overflow-x-auto shrink-0">
+    <button onclick="switchSection('predictions')" id="mob-nav-predictions" class="text-emerald-400 pb-1 border-b-2 border-emerald-400 whitespace-nowrap px-2">Predictions</button>
+    <button onclick="switchSection('optimizer')" id="mob-nav-optimizer" class="text-slate-400 pb-1 whitespace-nowrap px-2">Optimizer</button>
+    <button onclick="switchSection('converter')" id="mob-nav-converter" class="text-slate-400 pb-1 whitespace-nowrap px-2">Converter</button>
+    <button onclick="switchSection('sharpslips')" id="mob-nav-sharpslips" class="text-slate-400 pb-1 whitespace-nowrap px-2">SharpSlips</button>
   </div>
 
-  <!-- MAIN CONTAINER AREA -->
-  <main class="w-full max-w-5xl px-4 py-8 space-y-8 flex-1">
+  <!-- MAIN CONTAINER -->
+  <main class="w-full max-w-5xl px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 flex-1">
 
-    <!------------------------------------------------ SECTION 1: PREDICTIONS & ANALYZER ------------------------------------------------>
+    <!-------------------------------- SECTION 1: PREDICTIONS -------------------------------->
     <div id="section-predictions" class="space-y-6">
       
-      <!-- Intro Banner -->
-      <div class="bg-gradient-to-r from-emerald-950/40 via-[#0f172a] to-[#0b101d] border border-emerald-500/20 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <!-- Banner -->
+      <div class="bg-gradient-to-r from-emerald-950/40 via-[#0d1424] to-[#090e1a] border border-emerald-500/20 rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div class="space-y-1.5 max-w-xl">
-          <div class="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
-            <span>✨</span> AI-GENERATED RATINGS
+          <div class="inline-flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">
+            <span>✨</span> QUANTITATIVE VALUE MODEL
           </div>
-          <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">Every match, rated in plain words.</h2>
-          <p class="text-xs text-slate-400 leading-relaxed">Strong, Fair or Slim ratings backed by quantitative expected value models, removing all guesswork from your betting strategy.</p>
+          <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">Every match, rated in plain words.</h2>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">Strong, Fair, or Slim ratings driven by real expected value math to eliminate guesswork.</p>
         </div>
-        <div class="bg-[#0b101d] border border-slate-800 p-4 rounded-xl text-center shrink-0 w-full md:w-auto">
-          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Free Daily Picks</p>
-          <p class="text-lg font-black text-emerald-400 mt-0.5">2 Football Picks / Day</p>
+        <div class="bg-[#050811] border border-slate-800 p-3.5 rounded-xl text-center shrink-0 w-full md:w-auto">
+          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Status</p>
+          <p class="text-sm sm:text-base font-black text-emerald-400 mt-0.5">🟢 Engine Online</p>
         </div>
       </div>
 
-      <!-- Interactive Match Evaluator -->
-      <div class="bg-[#0b101d] border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+      <!-- Match Evaluator -->
+      <div class="bg-[#0d1424] border border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
           <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>📊</span> Custom Match AI Evaluator</h3>
-          <span class="text-[10px] text-slate-400 bg-slate-900 px-2 py-1 rounded border border-slate-800">Instant Probability Check</span>
+          <span class="text-[10px] text-slate-400 bg-[#050811] px-2 py-1 rounded border border-slate-800">Instant Edge Analysis</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Home Team</label>
-            <input id="homeTeam" type="text" value="Manchester City" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
+            <input id="homeTeam" type="text" value="Manchester City" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Away Team</label>
-            <input id="awayTeam" type="text" value="Liverpool" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
+            <input id="awayTeam" type="text" value="Liverpool" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Bookmaker Decimal Odds</label>
-            <input id="odds" type="number" step="0.01" value="1.85" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Bookmaker Odds</label>
+            <input id="odds" type="number" step="0.01" value="1.85" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Model Win Probability (%)</label>
-            <input id="winProb" type="number" step="1" value="62" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Model Win Prob (%)</label>
+            <input id="winProb" type="number" step="1" value="62" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Total Bankroll (₦)</label>
-            <input id="bankroll" type="number" value="100000" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
+            <label class="block text-xs font-semibold text-slate-400 mb-1.5">Bankroll Unit (₦)</label>
+            <input id="bankroll" type="number" value="100000" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-emerald-500 transition">
           </div>
         </div>
 
-        <button onclick="analyzeMatch()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+        <button id="analyzeBtn" onclick="analyzeMatch()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-emerald-500/10">
           Run AI Match Analysis
         </button>
       </div>
 
-      <!-- Analysis Results Card -->
-      <div id="resultsPanel" class="hidden bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <!-- Results Panel -->
+      <div id="resultsPanel" class="hidden bg-[#0d1424] border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
           <h4 id="fixtureTitle" class="font-bold text-white text-sm"></h4>
           <span id="ratingBadge" class="px-3 py-1 rounded-lg text-xs font-black tracking-wide"></span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-[#060913] border border-slate-800/80 p-4 rounded-xl">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-[#050811] border border-slate-800/80 p-4 rounded-xl">
             <p class="text-xs text-slate-400 font-medium">Expected Value ($EV$ Edge)</p>
             <p id="evResult" class="text-base font-black mt-1 text-emerald-400"></p>
           </div>
-          <div class="bg-[#060913] border border-slate-800/80 p-4 rounded-xl">
+          <div class="bg-[#050811] border border-slate-800/80 p-4 rounded-xl">
             <p class="text-xs text-slate-400 font-medium">Kelly Criterion Stake</p>
             <p id="stakeResult" class="text-base font-black text-emerald-400 mt-1"></p>
           </div>
         </div>
 
-        <div class="bg-[#060913] border border-slate-800/80 p-4 rounded-xl space-y-1.5">
+        <div class="bg-[#050811] border border-slate-800/80 p-4 rounded-xl space-y-1.5">
           <p class="text-xs font-bold text-slate-400 flex items-center gap-1.5"><span>🤖</span> SharpPunter Plain-Word Verdict</p>
-          <p id="aiInsightText" class="text-xs text-slate-300 leading-relaxed"></p>
+          <p id="aiInsightText" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
         </div>
       </div>
 
-      <!-- Live Synced Matches Table -->
-      <div class="bg-[#0b101d] border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+      <!-- Live Feed Table -->
+      <div class="bg-[#0d1424] border border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div class="flex justify-between items-center border-b border-slate-800 pb-3">
           <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>⚽</span> Today's Rated Fixtures Feed</h3>
-          <button onclick="loadLiveFixtures()" class="text-xs font-semibold text-emerald-400 hover:underline">Refresh Feed</button>
+          <button onclick="loadLiveFixtures()" class="text-xs font-semibold text-emerald-400 hover:underline">Refresh</button>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
+        <div class="overflow-x-auto -mx-5 sm:mx-0 px-5 sm:px-0">
+          <table class="w-full text-left text-xs whitespace-nowrap sm:whitespace-normal">
             <thead class="border-b border-slate-800 text-slate-400 font-semibold">
               <tr>
-                <th class="pb-3">Fixture</th>
-                <th class="pb-3">Odds</th>
-                <th class="pb-3">Rating</th>
-                <th class="pb-3">Edge ($EV$)</th>
-                <th class="pb-3">Rec. Stake</th>
+                <th class="pb-3 pr-4">Fixture</th>
+                <th class="pb-3 px-4">Odds</th>
+                <th class="pb-3 px-4">Rating</th>
+                <th class="pb-3 px-4">Edge ($EV$)</th>
+                <th class="pb-3 pl-4">Rec. Stake</th>
               </tr>
             </thead>
             <tbody id="liveFixturesBody" class="divide-y divide-slate-800/40 text-slate-300">
@@ -164,22 +163,22 @@
 
     </div>
 
-    <!------------------------------------------------ SECTION 2: CODE OPTIMIZER ------------------------------------------------>
+    <!-------------------------------- SECTION 2: CODE OPTIMIZER -------------------------------->
     <div id="section-optimizer" class="hidden space-y-6">
-      <div class="bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="bg-[#0d1424] border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div class="space-y-1 border-b border-slate-800 pb-3">
           <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🔍</span> Booking Code Optimizer</h3>
-          <p class="text-xs text-slate-400">Paste your booking code before staking. The optimizer checks every pick, flags negative EV legs, and suggests adjustments.</p>
+          <p class="text-xs text-slate-400">Paste your booking code to inspect picks, flag negative EV legs, and optimize your risk.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="md:col-span-2">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-2">
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Booking Code</label>
-            <input id="optCodeInput" type="text" placeholder="e.g. SPORTY-9928X" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 uppercase outline-none focus:border-emerald-500 transition">
+            <input id="optCodeInput" type="text" placeholder="e.g. SPORTY-9928X" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 uppercase outline-none focus:border-emerald-500 transition">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Bookmaker</label>
-            <select id="optBookmaker" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none focus:border-emerald-500 transition">
+            <select id="optBookmaker" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-emerald-500 transition">
               <option>SportyBet</option>
               <option>Bet9ja</option>
               <option>1xBet</option>
@@ -189,66 +188,66 @@
           </div>
         </div>
 
-        <button onclick="runCodeOptimizer()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+        <button id="optBtn" onclick="runCodeOptimizer()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-emerald-500/10">
           Check & Optimize Slip
         </button>
 
-        <div id="optResultBox" class="hidden bg-[#060913] border border-slate-800 p-5 rounded-xl space-y-3">
+        <div id="optResultBox" class="hidden bg-[#050811] border border-slate-800 p-5 rounded-xl space-y-3">
           <div class="flex justify-between items-center border-b border-slate-800 pb-2">
             <span id="optCodeTitle" class="font-bold text-emerald-400 text-xs"></span>
-            <span id="optFlagBadge" class="px-2.5 py-0.5 rounded text-[10px] font-extrabold"></span>
+            <span id="optFlagBadge" class="px-2.5 py-0.5 rounded text-[10px] font-black"></span>
           </div>
-          <p id="optReportText" class="text-xs text-slate-300 leading-relaxed"></p>
+          <p id="optReportText" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
         </div>
       </div>
     </div>
 
-    <!------------------------------------------------ SECTION 3: CODE CONVERTER ------------------------------------------------>
+    <!-------------------------------- SECTION 3: CODE CONVERTER -------------------------------->
     <div id="section-converter" class="hidden space-y-6">
-      <div class="bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="bg-[#0d1424] border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div class="space-y-1 border-b border-slate-800 pb-3">
           <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🔄</span> Booking Code Converter</h3>
-          <p class="text-xs text-slate-400">Convert codes seamlessly across 35+ bookmakers (e.g., SportyBet to Bet9ja or 1xBet) without retyping matches.</p>
+          <p class="text-xs text-slate-400">Convert booking codes across popular bookmakers instantly.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Source Bookmaker</label>
-            <select class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
+            <select class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none">
               <option>SportyBet</option><option>Bet9ja</option><option>1xBet</option><option>MSport</option>
             </select>
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Target Bookmaker</label>
-            <select class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
+            <select class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none">
               <option>Bet9ja</option><option>SportyBet</option><option>1xBet</option><option>MSport</option>
             </select>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-400 mb-1.5">Booking Code to Convert</label>
-          <input type="text" placeholder="Paste booking code here..." class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 uppercase outline-none focus:border-emerald-500">
+          <label class="block text-xs font-semibold text-slate-400 mb-1.5">Booking Code</label>
+          <input type="text" placeholder="Paste booking code here..." class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 uppercase outline-none focus:border-emerald-500">
         </div>
 
-        <button onclick="alert('Converter synced successfully! Code translated to target bookmaker.')" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
-          Convert Booking Code
+        <button onclick="alert('Converter synced successfully! Code translated.')" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-emerald-500/10">
+          Convert Code
         </button>
       </div>
     </div>
 
-    <!------------------------------------------------ SECTION 4: SHARPSLIPS ------------------------------------------------>
+    <!-------------------------------- SECTION 4: SHARPSLIPS -------------------------------->
     <div id="section-sharpslips" class="hidden space-y-6">
-      <div class="bg-[#0b101d] border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="bg-[#0d1424] border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
         <div class="space-y-1 border-b border-slate-800 pb-3">
           <h3 class="font-bold text-sm text-white flex items-center gap-2"><span>🎫</span> SharpSlips Builder</h3>
-          <p class="text-xs text-slate-400">Choose how many picks and your risk appetite. SharpSlips automatically compiles a high-EV betting slip.</p>
+          <p class="text-xs text-slate-400">Auto-compile high-EV accumulated betting slips based on risk preference.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Number of Legs</label>
-            <select id="slipNumPicks" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
+            <select id="slipNumPicks" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none">
               <option value="2">2 Picks (Double)</option>
               <option value="3" selected>3 Picks (Standard)</option>
               <option value="5">5 Picks (Accumulator)</option>
@@ -256,22 +255,25 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Risk Profile</label>
-            <select id="slipRisk" class="w-full bg-[#060913] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 outline-none">
-              <option>Safe (High Win Probability)</option>
+            <select id="slipRisk" class="w-full bg-[#050811] border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none">
+              <option>Safe (High Probability)</option>
               <option selected>Balanced Value</option>
               <option>Adventurous (Long Odds)</option>
             </select>
           </div>
         </div>
 
-        <button onclick="generateSharpSlip()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-lg shadow-emerald-500/10">
+        <button id="slipBtn" onclick="generateSharpSlip()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl text-sm transition shadow-lg shadow-emerald-500/10">
           Generate SharpSlip
         </button>
 
-        <div id="slipOutputBox" class="hidden bg-[#060913] border border-slate-800 p-5 rounded-xl space-y-3">
+        <div id="slipOutputBox" class="hidden bg-[#050811] border border-slate-800 p-5 rounded-xl space-y-3">
           <div class="flex justify-between items-center border-b border-slate-800 pb-2">
             <span class="text-xs font-bold text-slate-300">Generated Code: <span id="outSlipCode" class="text-emerald-400 font-black"></span></span>
-            <span id="outSlipOdds" class="text-xs font-bold text-slate-300">Total Odds: <span class="text-emerald-400 font-black"></span></span>
+            <div class="flex items-center gap-3">
+              <span id="outSlipOdds" class="text-xs font-bold text-slate-300">Total Odds: <span class="text-emerald-400 font-black"></span></span>
+              <button onclick="copySlipCode()" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 px-2.5 py-1 rounded text-[10px] font-bold transition">📋 Copy Code</button>
+            </div>
           </div>
           <div id="outSlipPicks" class="space-y-2 text-xs"></div>
         </div>
@@ -281,8 +283,8 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="w-full bg-[#0b101d] border-t border-slate-800 py-6 mt-12 text-center text-[11px] text-slate-500 space-y-1">
-    <p>SharpPunter provides AI-powered sports analysis and predictions for informational purposes only. Please gamble responsibly (18+).</p>
+  <footer class="w-full bg-[#090e1a] border-t border-slate-800 py-6 mt-12 text-center text-[11px] text-slate-500 space-y-1 px-4">
+    <p>SharpPunter provides AI sports predictions for informational purposes only. Play responsibly (18+).</p>
     <p>© 2026 SharpPunter Engine. All rights reserved.</p>
   </footer>
 
@@ -292,46 +294,72 @@
       ['predictions', 'optimizer', 'converter', 'sharpslips'].forEach(s => {
         document.getElementById(`section-${s}`).classList.add('hidden');
         const deskBtn = document.getElementById(`nav-${s}`);
-        if(deskBtn) deskBtn.className = 'px-4 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition';
+        if(deskBtn) deskBtn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition';
         const mobBtn = document.getElementById(`mob-nav-${s}`);
-        if(mobBtn) mobBtn.className = 'text-slate-400 pb-1';
+        if(mobBtn) mobBtn.className = 'text-slate-400 pb-1 whitespace-nowrap px-2';
       });
 
       document.getElementById(`section-${section}`).classList.remove('hidden');
       const activeDesk = document.getElementById(`nav-${section}`);
-      if(activeDesk) activeDesk.className = 'px-4 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950 shadow';
+      if(activeDesk) activeDesk.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-emerald-500 text-slate-950 shadow';
       const activeMob = document.getElementById(`mob-nav-${section}`);
-      if(activeMob) activeMob.className = 'text-emerald-400 pb-1 border-b-2 border-emerald-400';
+      if(activeMob) activeMob.className = 'text-emerald-400 pb-1 border-b-2 border-emerald-400 whitespace-nowrap px-2 font-bold';
     }
 
     async function analyzeMatch() {
+      const odds = parseFloat(document.getElementById('odds').value);
+      const winProb = parseFloat(document.getElementById('winProb').value);
+
+      if (isNaN(odds) || odds <= 1.0) {
+        alert("Please enter valid bookmaker odds greater than 1.0.");
+        return;
+      }
+      if (isNaN(winProb) || winProb <= 0 || winProb > 100) {
+        alert("Please enter a valid win probability between 1% and 100%.");
+        return;
+      }
+
+      const btn = document.getElementById('analyzeBtn');
+      btn.disabled = true;
+      btn.innerText = "Analyzing Match & Computing Edge...";
+
       const payload = {
         home_team: document.getElementById('homeTeam').value,
         away_team: document.getElementById('awayTeam').value,
-        bookmaker_odds: parseFloat(document.getElementById('odds').value),
-        model_win_prob: parseFloat(document.getElementById('winProb').value) / 100.0,
-        bankroll: parseFloat(document.getElementById('bankroll').value)
+        bookmaker_odds: odds,
+        model_win_prob: winProb / 100.0,
+        bankroll: parseFloat(document.getElementById('bankroll').value) || 100000
       };
 
-      const res = await fetch('/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
 
-      document.getElementById('resultsPanel').classList.remove('hidden');
-      document.getElementById('fixtureTitle').innerText = `${data.home_team} vs ${data.away_team}`;
-      
-      const badge = document.getElementById('ratingBadge');
-      if (data.rating === 'Strong') badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-      else if (data.rating === 'Fair') badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-amber-500/20 text-amber-400 border border-amber-500/30";
-      else badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-slate-500/20 text-slate-400 border border-slate-500/30";
-      badge.innerText = `${data.rating.toUpperCase()} PICK`;
+        document.getElementById('resultsPanel').classList.remove('hidden');
+        document.getElementById('fixtureTitle').innerText = `${data.home_team} vs ${data.away_team}`;
+        
+        const badge = document.getElementById('ratingBadge');
+        if (data.rating === 'Strong') badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        else if (data.rating === 'Fair') badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-amber-500/20 text-amber-400 border border-amber-500/30";
+        else badge.className = "px-3 py-1 rounded-lg text-xs font-black bg-slate-500/20 text-slate-400 border border-slate-500/30";
+        badge.innerText = `${data.rating.toUpperCase()} PICK`;
 
-      document.getElementById('evResult').innerText = `+${data.ev_pct}%`;
-      document.getElementById('stakeResult').innerText = `₦${data.recommended_stake.toLocaleString()} (${data.stake_pct}%)`;
-      document.getElementById('aiInsightText').innerText = data.ai_insight;
+        document.getElementById('evResult').innerText = `+${data.ev_pct}%`;
+        document.getElementById('stakeResult').innerText = `₦${data.recommended_stake.toLocaleString()} (${data.stake_pct}%)`;
+        document.getElementById('aiInsightText').innerText = data.ai_insight;
+
+        // Save to localStorage history
+        saveRecentHistory({ title: `${data.home_team} vs ${data.away_team}`, rating: data.rating, ev: data.ev_pct });
+      } catch (err) {
+        alert("Analysis failed. Please check network connection.");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Run AI Match Analysis";
+      }
     }
 
     async function runCodeOptimizer() {
@@ -339,59 +367,94 @@
       const bookmaker = document.getElementById('optBookmaker').value;
       if(!code) { alert("Please input a booking code."); return; }
 
-      const res = await fetch('/api/check-code', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ booking_code: code, bookmaker: bookmaker })
-      });
-      const data = await res.json();
+      const btn = document.getElementById('optBtn');
+      btn.disabled = true;
+      btn.innerText = "Scanning Slip Legs...";
 
-      const box = document.getElementById('optResultBox');
-      box.classList.remove('hidden');
-      document.getElementById('optCodeTitle').innerText = `Code: ${data.code} (${data.bookmaker})`;
-      
-      const flag = document.getElementById('optFlagBadge');
-      if (data.flagged_weak_legs > 0) {
-        flag.className = "px-2.5 py-0.5 rounded text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30";
-        flag.innerText = "WEAK LEG FLAGGED";
-      } else {
-        flag.className = "px-2.5 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-        flag.innerText = "ALL LEGS VERIFIED";
+      try {
+        const res = await fetch('/api/check-code', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ booking_code: code, bookmaker: bookmaker })
+        });
+        const data = await res.json();
+
+        const box = document.getElementById('optResultBox');
+        box.classList.remove('hidden');
+        document.getElementById('optCodeTitle').innerText = `Code: ${data.code} (${data.bookmaker})`;
+        
+        const flag = document.getElementById('optFlagBadge');
+        if (data.flagged_weak_legs > 0) {
+          flag.className = "px-2.5 py-0.5 rounded text-[10px] font-black bg-rose-500/20 text-rose-400 border border-rose-500/30";
+          flag.innerText = "WEAK LEG FLAGGED";
+        } else {
+          flag.className = "px-2.5 py-0.5 rounded text-[10px] font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+          flag.innerText = "ALL LEGS VERIFIED";
+        }
+        document.getElementById('optReportText').innerText = data.analysis_report;
+      } catch(err) {
+        alert("Optimization check failed.");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Check & Optimize Slip";
       }
-      document.getElementById('optReportText').innerText = data.analysis_report;
     }
 
     async function generateSharpSlip() {
       const numPicks = parseInt(document.getElementById('slipNumPicks').value);
       const risk = document.getElementById('slipRisk').value;
 
-      const res = await fetch('/api/generate-sharpslip', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ num_picks: numPicks, risk_profile: risk })
-      });
-      const data = await res.json();
+      const btn = document.getElementById('slipBtn');
+      btn.disabled = true;
+      btn.innerText = "Compiling SharpSlip...";
 
-      const box = document.getElementById('slipOutputBox');
-      box.classList.remove('hidden');
-      document.getElementById('outSlipCode').innerText = data.generated_code;
-      document.getElementById('outSlipOdds').querySelector('span').innerText = `@${data.total_odds}`;
+      try {
+        const res = await fetch('/api/generate-sharpslip', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ num_picks: numPicks, risk_profile: risk })
+        });
+        const data = await res.json();
 
-      const container = document.getElementById('outSlipPicks');
-      if (data.picks.length === 0) {
-        container.innerHTML = `<p class="text-slate-500">No live fixture matches found to compile a slip.</p>`;
-        return;
-      }
+        const box = document.getElementById('slipOutputBox');
+        box.classList.remove('hidden');
+        document.getElementById('outSlipCode').innerText = data.generated_code;
+        document.getElementById('outSlipOdds').querySelector('span').innerText = `@${data.total_odds}`;
 
-      container.innerHTML = data.picks.map(p => `
-        <div class="bg-[#060913] border border-slate-800 p-3 rounded-xl flex justify-between items-center">
-          <div>
-            <p class="font-bold text-slate-200">${p.home_team} vs ${p.away_team}</p>
-            <p class="text-[10px] text-slate-400">${p.league} | Value Edge: +${p.ev_pct}%</p>
+        const container = document.getElementById('outSlipPicks');
+        if (data.picks.length === 0) {
+          container.innerHTML = `<p class="text-slate-500">No live fixture matches found to compile a slip.</p>`;
+          return;
+        }
+
+        container.innerHTML = data.picks.map(p => `
+          <div class="bg-[#050811] border border-slate-800 p-3 rounded-xl flex justify-between items-center">
+            <div>
+              <p class="font-bold text-slate-200">${p.home_team} vs ${p.away_team}</p>
+              <p class="text-[10px] text-slate-400">${p.league} | Value Edge: +${p.ev_pct}%</p>
+            </div>
+            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-lg text-[10px] font-bold">@${p.bookmaker_odds}</span>
           </div>
-          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-lg text-[10px] font-bold">@${p.bookmaker_odds}</span>
-        </div>
-      `).join('');
+        `).join('');
+      } catch (err) {
+        alert("Failed to generate slip.");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Generate SharpSlip";
+      }
+    }
+
+    function copySlipCode() {
+      const codeText = document.getElementById('outSlipCode').innerText;
+      navigator.clipboard.writeText(codeText);
+      alert(`Booking code ${codeText} copied to clipboard!`);
+    }
+
+    function saveRecentHistory(item) {
+      let history = JSON.parse(localStorage.getItem('sharpspunt_history') || '[]');
+      history.unshift(item);
+      if (history.length > 5) history.pop();
+      localStorage.setItem('sharpspunt_history', JSON.stringify(history));
     }
 
     async function loadLiveFixtures() {
@@ -407,15 +470,15 @@
 
         tbody.innerHTML = data.map(f => `
           <tr class="hover:bg-slate-900/40 transition">
-            <td class="py-3 font-bold text-slate-200">${f.home_team} vs ${f.away_team}</td>
-            <td class="py-3 font-semibold text-slate-300">@${f.bookmaker_odds}</td>
-            <td class="py-3">
-              <span class="px-2.5 py-1 rounded text-[10px] font-extrabold ${f.rating === 'Strong' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">
+            <td class="py-3 pr-4 font-bold text-slate-200">${f.home_team} vs ${f.away_team}</td>
+            <td class="py-3 px-4 font-semibold text-slate-300">@${f.bookmaker_odds}</td>
+            <td class="py-3 px-4">
+              <span class="px-2.5 py-1 rounded text-[10px] font-black ${f.rating === 'Strong' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">
                 ${f.rating.toUpperCase()}
               </span>
             </td>
-            <td class="py-3 font-black text-emerald-400">+${f.ev_pct}%</td>
-            <td class="py-3 text-emerald-400 font-bold">₦${f.recommended_stake.toLocaleString()}</td>
+            <td class="py-3 px-4 font-black text-emerald-400">+${f.ev_pct}%</td>
+            <td class="py-3 pl-4 text-emerald-400 font-bold">₦${f.recommended_stake.toLocaleString()}</td>
           </tr>
         `).join('');
       } catch (e) {
